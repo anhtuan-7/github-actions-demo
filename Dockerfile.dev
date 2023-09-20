@@ -1,0 +1,16 @@
+FROM node:20.5.1-alpine
+
+USER node
+ 
+RUN mkdir -p /home/node/app
+WORKDIR /home/node/app
+ 
+# turn off next 4 commands when using volume (docker-compose)
+COPY --chown=node:node ./package.json ./
+# I don't know how but it works by telling npm where to look for packages
+COPY --chown=node:node ./package-lock.json ./  
+
+RUN npm install --loglevel verbose
+COPY --chown=node:node ./src ./src
+ 
+CMD ["npm", "start"]
