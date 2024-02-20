@@ -20,16 +20,20 @@ jobs:
         # Excludes any files ending with .git. (-x flag means exclude)
         run: zip -r deploy.zip . -x '*.git*'
 
-      # - name: Deploy to AWS Elastic Beanstalk
-      #   uses: einaregilsson/beanstalk-deploy@v18
-      #   with:
-      #     aws_access_key: ${{ secrets.AWS_ACCESS_KEY }}
-      #     aws_secret_key: ${{ secrets.AWS_SECRET_KEY }}
+      - name: Deploy to AWS Elastic Beanstalk
+        uses: einaregilsson/beanstalk-deploy@v18
+        with:
+          aws_access_key: ${{ secrets.AWS_ACCESS_KEY }}
+          aws_secret_key: ${{ secrets.AWS_SECRET_KEY }}
 
-      #     application_name: github-action-demo
-      #     environment_name: github-action-demo-env
-      #     existing_bucket_name: EMPTY_NAME_NEED_TO_BE_UPDATED
-      #     region: ap-southeast-2
+          region: ap-southeast-2
 
-      #     version_label: ${{ github.sha }}
-      #     deployment_package: deploy.zip
+          # Elastic Beanstalk
+          application_name: frontend
+          environment_name: Frontend-env
+
+          # S3 Bucket
+          existing_bucket_name: elasticbeanstalk-ap-southeast-2-663177864709
+
+          version_label: ${{ github.sha }}
+          deployment_package: deploy.zip

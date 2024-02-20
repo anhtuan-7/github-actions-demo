@@ -1,21 +1,8 @@
 version: "3"
 services:
-  web-development:
-    # container_name: web
+  web:
     build:
       context: .
-      dockerfile: Dockerfile.dev
+      dockerfile: Dockerfile
     ports:
-      - "3000:3000"
-    volumes:
-      - /mnt/f/Bootcamps/Tools Pack/Docker and Kubernetes/Section-6-Workflow/frontend/node_modules
-      - .:/home/node/app
-
-  web-testing:
-    build:
-      context: .
-      dockerfile: Dockerfile.dev
-    volumes:
-      - /mnt/f/Bootcamps/Tools Pack/Docker and Kubernetes/Section-6-Workflow/frontend/node_modules
-      - .:/home/node/app
-    command: ["npm", "run", "test"]
+      - "80:80" # nginx serves on port 80 and 443
